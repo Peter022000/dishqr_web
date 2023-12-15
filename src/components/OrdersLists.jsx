@@ -75,7 +75,7 @@ const OrderList = (props) => {
     return (
         <div className="page-container">
             <div className="content-wrap">
-                <h2 style={{ textAlign: 'center' }}>Lista zamówień</h2>
+                <h2 style={{ textAlign: 'center', margin: "10px" }}>Lista zamówień</h2>
                 {orders.map((order, index) => {
                     return (
                         <div key={index + '_' + order.id} className="order-container">
