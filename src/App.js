@@ -1,24 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import './App.css';
+import {BrowserRouter, Routes, Route, Navigate, Outlet} from "react-router-dom";
+import NavigationBar from "./components/NavigationBar";
+import {isExpired} from "react-jwt";
+import Error from "./components/Error";
+import Footer from "./components/Footer";
+import React from "react";
+import {Provider} from "react-redux";
+import {store} from "./store/store";
+import NewOrders from "./components/NewOrders";
+import Login from "./components/Login";
 
 function App() {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<><NavigationBar/><Outlet/><Footer/></>}>
+              <Route index element={<NewOrders />} />
+              <Route path="newOrders" element={<NewOrders/>} />
+              <Route path="signin" element={<Login/>} />
+              <Route path="*" element={<Error />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
   );
 }
 
