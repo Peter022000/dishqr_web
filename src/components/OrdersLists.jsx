@@ -61,6 +61,12 @@ const OrderList = (props) => {
         setShowDetailsModal(!showDetailsModal);
     };
 
+    const toggleClose = () => {
+        if(setShowDetailsModal()) {
+            setShowDetailsModal(!showDetailsModal);
+        }
+    };
+
     const handleDetailsClick = (order) => {
         setSelectedOrder(order);
         toggleOpen();
@@ -69,7 +75,7 @@ const OrderList = (props) => {
     return (
         <div className="page-container">
             <div className="content-wrap">
-                <h2>Lista zamówień</h2>
+                <h2 style={{ textAlign: 'center' }}>Lista zamówień</h2>
                 {orders.map((order, index) => {
                     return (
                         <div key={index + '_' + order.id} className="order-container">
@@ -77,14 +83,19 @@ const OrderList = (props) => {
                                 <p>Zamówienie: {order.orderDishesDto.map((item) => item.dishDto.name).join(', ')}</p>
                                 <p>Data: {formatDate(order.date)}</p>
                                 <p>Numer stolika: {tableNumbers[order.tableNoId]}</p>
-                                <button className="button" onClick={() => handleDetailsClick(order)}>Szczegóły</button>
+                                <MDBBtn
+                                    className="button"
+                                    onClick={() => handleDetailsClick(order)}
+                                >
+                                    Szczegóły
+                                </MDBBtn>
                             </div>
                         </div>
                     );
                 })}
             </div>
 
-            <MDBModal open={showDetailsModal} setopen={toggleOpen} onClose={toggleOpen} tabIndex="-1">
+            <MDBModal open={showDetailsModal} setopen={toggleOpen} onClose={toggleClose} tabIndex="-1">
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
@@ -103,7 +114,7 @@ const OrderList = (props) => {
                             <MDBBtn color="secondary" onClick={toggleOpen}>
                                 Close
                             </MDBBtn>
-                            <MDBBtn className="button" style={{ backgroundColor: '#4CAF50', color: 'white' }}>Save changes</MDBBtn>
+                            <MDBBtn className="button">Save changes</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>
                 </MDBModalDialog>
