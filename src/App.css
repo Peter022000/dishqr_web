@@ -30,7 +30,7 @@
   align-items: center;
 }
 
-button {
+.button {
   margin-top: 10px;
   cursor: pointer;
   background-color: #4CAF50;

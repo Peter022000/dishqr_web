@@ -1,7 +1,10 @@
 import {GET_ORDERS} from "../types/orderTypes";
 
 const initialState = {
-    orders: [],
+    newOrders: [],
+    inProgressOrders: [],
+    finishedOrders: [],
+    allOrders: []
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -9,7 +12,7 @@ const orderReducer = (state = initialState, action) => {
         case GET_ORDERS:
             console.log(action.payload.data)
             return {
-                orders: action.payload.data,
+                newOrders: action.payload.data,
             };
         default:
             return state;
