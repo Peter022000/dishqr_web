@@ -1,45 +1,53 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import {Link} from "react-router-dom";
+import {
+    MDBCollapse,
+    MDBContainer, MDBIcon,
+    MDBNavbar,
+    MDBNavbarBrand,
+    MDBNavbarItem,
+    MDBNavbarNav,
+    MDBNavbarToggler
+} from "mdb-react-ui-kit";
+import {useState} from "react";
 
 const NavigationBar = () => {
-
+    const [openNavText, setOpenNavText] = useState(false);
 
     return (
-        <Navbar bg="light" expand="lg" style={{height:'4rem'}}>
-            <Container fluid>
-                <Navbar.Brand>
-                    <Link className="text-decoration-none text-black" to="/">
-                        DishQr
-                    </Link>
-                </Navbar.Brand>
-                <Navbar.Toggle style={{marginBottom:'1rem'}} aria-controls="navbarScroll" />
-                <Navbar.Collapse style={{backgroundColor: "#f8f9fa", color: 'f8f9fa', zIndex:1000}} id="navbarScroll">
-                    <Nav
-                        className="me-auto my-2 my-lg-0"
-                        navbarScroll
-                    >
-                        <Link className="nav-link text-decoration-none text-black" to="/newOrders">
-                            Nowe zamówienia
-                        </Link>
-
-                        <Link className="nav-link text-decoration-none text-black" to="/processingOrders">
-                            Zamówienia w toku
-                        </Link>
-
-                        {/*{<Nav.Link>*/}
-                        {/*    <Link onClick={() => {localStorage.removeItem('token'); window.location.href = "/";}} className="text-decoration-none text-black" to="/">*/}
-                        {/*        Wyloguj się*/}
-                        {/*    </Link>*/}
-                        {/*</Nav.Link>}*/}
-
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-    )
+        <MDBNavbar expand='lg' light bgColor='light' style={{height:'4rem'}}>
+            <MDBContainer fluid>
+                <MDBNavbarBrand>
+                    DishQr
+                </MDBNavbarBrand>
+                <MDBNavbarToggler
+                    type='button'
+                    data-target='#navbarText'
+                    aria-controls='navbarText'
+                    aria-expanded='false'
+                    aria-label='Toggle navigation'
+                    onClick={() => setOpenNavText(!openNavText)}
+                >
+                    <MDBIcon icon='bars' fas />
+                </MDBNavbarToggler>
+                <MDBCollapse style={{backgroundColor: "#f8f9fa", color: 'f8f9fa', zIndex:1000, padding: "1.2rem"}} navbar open={openNavText}>
+                    <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
+                        {/* Dodaj ścieżki do nawigacji */}
+                        <MDBNavbarItem>
+                            <Link className="nav-link text-decoration-none text-black" to='/newOrders'>
+                                Nowe zamówienia
+                            </Link>
+                        </MDBNavbarItem>
+                        <MDBNavbarItem>
+                            <Link className="nav-link text-decoration-none text-black" to='/processingOrders'>
+                                Zamówienia w toku
+                            </Link>
+                        </MDBNavbarItem>
+                    </MDBNavbarNav>
+                </MDBCollapse>
+            </MDBContainer>
+        </MDBNavbar>
+    );
 }
 
 export default NavigationBar;
