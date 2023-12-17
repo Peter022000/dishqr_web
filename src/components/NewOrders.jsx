@@ -1,7 +1,7 @@
 import React from "react";
 import OrderList from "./OrdersLists";
 
-const MovieCard = (props) => {
+const NewOrders = (props) => {
 
     return (
         <div className="page-container">
@@ -12,4 +12,4 @@ const MovieCard = (props) => {
     );
 }
 
-export default MovieCard;
+export default NewOrders;
