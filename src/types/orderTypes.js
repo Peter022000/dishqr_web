@@ -1,1 +1,6 @@
+import {PROCESSING} from "./statusTypes";
+
 export const GET_ORDERS = "GET_ORDERS";
+export const MOVE_FROM_NEW_TO_PROCESSING = "MOVE_FROM_NEW_TO_PROCESSING";
+export const SAVE_NEW_ORDERS = "SAVE_NEW_ORDERS";
+export const SAVE_PROCESSING_ORDERS = "SAVE_PROCESSING_ORDERS";

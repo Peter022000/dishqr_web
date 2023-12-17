@@ -16,7 +16,7 @@ const NavigationBar = () => {
                     </Link>
                 </Navbar.Brand>
                 <Navbar.Toggle style={{marginBottom:'1rem'}} aria-controls="navbarScroll" />
-                <Navbar.Collapse style={{backgroundColor: "#f8f9fa", zIndex:1000}} id="navbarScroll">
+                <Navbar.Collapse style={{backgroundColor: "#f8f9fa", color: 'f8f9fa', zIndex:1000}} id="navbarScroll">
                     <Nav
                         className="me-auto my-2 my-lg-0"
                         navbarScroll
@@ -25,7 +25,7 @@ const NavigationBar = () => {
                             Nowe zamówienia
                         </Link>
 
-                        <Link className="nav-link text-decoration-none text-black" to="/signin">
+                        <Link className="nav-link text-decoration-none text-black" to="/processingOrders">
                             Zamówienia w toku
                         </Link>
 

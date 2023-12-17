@@ -45,17 +45,22 @@ div, p {
 
 
 .order-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
   padding: 1rem;
-  column-count: 3;
-  flex: 1;
 }
-.order-details-item {
-  margin-bottom: 1.2rem;
-  display: block;
-  text-align: center;
-  width: 100%;
+.order-details-two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  padding: 1rem;
 }
 
+.order-details-item {
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
 .button {
   margin-top: 10px;
   cursor: pointer;
