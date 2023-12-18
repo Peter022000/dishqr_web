@@ -52,7 +52,7 @@ const NavigationBar = () => {
     }, [dispatch]);
 
     return (
-        <MDBNavbar expand='lg' light bgColor='light' style={{height:'4rem'}}>
+        <MDBNavbar expand='lg' light bgColor='light' style={{ height: '4rem' }}>
             <MDBContainer fluid>
                 <MDBNavbarBrand>
                     DishQr
@@ -67,7 +67,7 @@ const NavigationBar = () => {
                 >
                     <MDBIcon icon='bars' fas />
                 </MDBNavbarToggler>
-                <MDBCollapse style={{backgroundColor: "#f8f9fa", color: 'f8f9fa', zIndex:1000, padding: "1.2rem"}} navbar open={openNavText}>
+                <MDBCollapse style={{ backgroundColor: "#f8f9fa", color: 'f8f9fa', zIndex: 1000, padding: "1.2rem" }} navbar open={openNavText}>
                     <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
                         <MDBNavbarItem>
                             <Link className="nav-link text-decoration-none text-black" to='/newOrders'>
@@ -87,6 +87,15 @@ const NavigationBar = () => {
                         <MDBNavbarItem>
                             <Link className="nav-link text-decoration-none text-black" to='/completedOrders'>
                                 Zakończone zamówienia
+                            </Link>
+                        </MDBNavbarItem>
+                    </MDBNavbarNav>
+
+                    {/* Align the content to the right side */}
+                    <MDBNavbarNav className='ml-auto justify-content-end'>
+                        <MDBNavbarItem>
+                            <Link className="nav-link text-decoration-none text-black" to='/completedOrders'>
+                                Panel administratora
                             </Link>
                         </MDBNavbarItem>
                     </MDBNavbarNav>
