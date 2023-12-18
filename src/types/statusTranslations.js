@@ -1,5 +1,7 @@
 export const statusTranslations = {
     NEW: 'Nowe',
-    PROCESSING: 'Przetwarzanie',
-    FINISHED: 'Zakończone',
+    PREPARATION: "W przygotowaniu",
+    SERVED: "Wydano",
+    PAYED: "Opłacono",
+    COMPLETED: "Zakończono"
 };

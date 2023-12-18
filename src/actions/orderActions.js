@@ -3,10 +3,10 @@ import {
     GET_NEW_ORDERS,
     GET_ORDERS,
     GET_PROCESSING_ORDERS,
-    MOVE_FROM_NEW_TO_PROCESSING, SAVE_NEW_ORDERS,
+    MOVE_FROM_NEW_TO_PROCESSING, SAVE_NEW_ORDERS, SAVE_ORDERS_IN_PREPARATION,
     SAVE_PROCESSING_ORDERS
 } from "../types/orderTypes";
-import {NEW, PROCESSING} from "../types/statusTypes";
+import {NEW, PREPARATION, PROCESSING} from "../types/statusTypes";
 
 export const getNewOrders = () => async (dispatch, getState) => {
     try {
@@ -17,7 +17,7 @@ export const getNewOrders = () => async (dispatch, getState) => {
         });
 
         const data = response.data;
-        console.log(data)
+
         dispatch({
             type: SAVE_NEW_ORDERS,
             payload: {
@@ -30,9 +30,9 @@ export const getNewOrders = () => async (dispatch, getState) => {
     }
 };
 
-export const getProcessingOrders = () => async (dispatch, getState) => {
+export const getOrdersInPreparation = () => async (dispatch, getState) => {
     try {
-        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatus?statusType=' + PROCESSING, {
+        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatus?statusType=' + PREPARATION, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -40,8 +40,11 @@ export const getProcessingOrders = () => async (dispatch, getState) => {
 
         const data = response.data;
 
+        console.log(data)
+
+
         dispatch({
-            type: SAVE_PROCESSING_ORDERS,
+            type: SAVE_ORDERS_IN_PREPARATION,
             payload: {
                 data: data
             },

@@ -1,3 +1,4 @@
 export const NEW = "NEW";
-export const PROCESSING = "PROCESSING";
-export const FINISHED = "FINISHED";
+export const PREPARATION = "PREPARATION";
+export const SERVED = "SERVED";
+export const COMPLETED = "COMPLETED";

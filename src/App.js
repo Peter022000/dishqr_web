@@ -10,7 +10,8 @@ import {Provider} from "react-redux";
 import {store} from "./store/store";
 import NewOrders from "./components/NewOrders";
 import Login from "./components/Login";
-import ProcessingOrders from "./components/ProcessingOrders";
+import ProcessingOrders from "./components/OrdersInPreparation";
+import OrdersInPreparation from "./components/OrdersInPreparation";
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
             <Route path="/" element={<><NavigationBar/><Outlet/><Footer/></>}>
               <Route index element={<NewOrders />} />
               <Route path="newOrders" element={<NewOrders/>} />
-              <Route path="processingOrders" element={<ProcessingOrders/>} />
+              <Route path="ordersInPreparation" element={<OrdersInPreparation/>} />
               <Route path="*" element={<Error />} />
             </Route>
           </Routes>

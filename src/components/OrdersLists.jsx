@@ -15,30 +15,23 @@ import {
 import {Card} from "react-bootstrap";
 import {statusTranslations} from "../types/statusTranslations";
 import {paymentMethodTranslations} from "../types/paymentMethodTranslations";
-import {PROCESSING} from "../types/statusTypes";
 
-const OrderList = (props) => {
-    const dispatch = useDispatch();
-    const orders = useSelector((state) => state.order.newOrders);
+const OrderList = ({orders, buttonFunction, functionName}) => {
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
 
     const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
-        const formattedDate = new Date(dateString).toLocaleString(undefined, options);
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+        const formattedDate = new Date(Number(dateString)).toLocaleString('en-US', options);
         return formattedDate.replace(/\//g, '.');
     };
-
-    useEffect(() => {
-        dispatch(getNewOrders());
-    }, [dispatch]);
 
     const toggleOpen = () => {
         setShowDetailsModal(!showDetailsModal);
     };
 
     const toggleClose = () => {
-        if(setShowDetailsModal()) {
+        if(showDetailsModal) {
             setShowDetailsModal(!showDetailsModal);
         }
     };
@@ -48,14 +41,9 @@ const OrderList = (props) => {
         toggleOpen();
     };
 
-    function acceptOrder(acceptedOrder) {
-        dispatch(changeOrderStatus(acceptedOrder, PROCESSING))
-    }
-
     return (
-        <div className="page-container">
+        <>
             <div className="content-wrap">
-                <h2 style={{ textAlign: 'center', margin: "10px" }}>Nowe zamówienia</h2>
                 {orders?.map((order, index) => {
                     return (
                         <div key={index + '_' + order.id} className="order-container">
@@ -77,7 +65,7 @@ const OrderList = (props) => {
                                 <div className="order-details-item">
                                     <strong>Data:</strong> {formatDate(order.date)}<br />
                                     <strong>Status:</strong> {statusTranslations[order.status]}<br />
-                                    {order.orderDiscount.isUsed &&
+                                    {order?.orderDiscount?.isUsed &&
                                         <React.Fragment>
                                             <strong>Wykorzystano obniżkę:</strong> {order.orderDiscount.discountPercentage * 100}%<br />
                                         </React.Fragment>
@@ -95,9 +83,9 @@ const OrderList = (props) => {
                                 </MDBBtn>
                                 <MDBBtn
                                     className="button"
-                                    onClick={() => acceptOrder(order)}
+                                    onClick={() => buttonFunction(order)}
                                 >
-                                    Przyjmij
+                                    {functionName}
                                 </MDBBtn>
                             </div>
                         </div>
@@ -159,14 +147,14 @@ const OrderList = (props) => {
                                         <MDBBtn color="secondary" onClick={toggleOpen}>
                                             Zamknij
                                         </MDBBtn>
-                                        <MDBBtn className="button" onClick={() => acceptOrder(selectedOrder)}>Przyjmij</MDBBtn>
+                                        <MDBBtn className="button" onClick={() => buttonFunction(selectedOrder)}>{functionName}</MDBBtn>
                                     </MDBModalFooter>
                                 </>
                             ) : null}
                     </MDBModalContent>
                 </MDBModalDialog>
             </MDBModal>
-        </div>
+        </>
     );
 };
 
