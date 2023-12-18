@@ -12,7 +12,7 @@ import {
 import {useEffect, useState} from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import {CHANGE_STATUS, SAVE_NEW_ORDER} from "../types/orderTypes";
+import {CHANGE_STATUS, SAVE_NEW_ORDER} from "../types/orderActionTypes";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
 
@@ -22,37 +22,35 @@ const NavigationBar = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Establish WebSocket connection
         const socket = new SockJS('http://192.168.1.2:8080/ws', null, { withCredentials: true, transports: 'websocket' });
         const stompClient = Stomp.over(socket);
 
-        stompClient?.connect({}, () => {
-            // Subscribe to the topic for new orders
+        const connectCallback = () => {
             stompClient?.subscribe('/topic/newOrder', (message) => {
-                // Handle incoming new order
                 const newOrder = JSON.parse(message.body);
                 dispatch({
                     type: SAVE_NEW_ORDER,
                     payload: {
-                        data: newOrder
+                        data: newOrder,
                     },
                 });
             });
+        };
 
-            // Subscribe to the topic for changed order status
-            stompClient?.subscribe('/topic/changedStatusOrder', (message) => {
-                // Handle incoming order status update
-                const updatedOrder = JSON.parse(message.body);
+        const errorCallback = (error) => {
+            console.error('Socket connection error:', error);
+            toast.error('Socket connection error. Please refresh the page.');
+        };
 
-                dispatch({
-                    type: CHANGE_STATUS,
-                    payload: {
-                        data: updatedOrder
-                    },
-                });
-            });
-        });
-    }, []); // Empty dependency array ensures this effect runs only once
+        stompClient?.connect({}, connectCallback, errorCallback);
+
+        return () => {
+            if (stompClient) {
+                stompClient.disconnect();
+            }
+        };
+    }, [dispatch]);
+
     return (
         <MDBNavbar expand='lg' light bgColor='light' style={{height:'4rem'}}>
             <MDBContainer fluid>
@@ -82,12 +80,12 @@ const NavigationBar = () => {
                             </Link>
                         </MDBNavbarItem>
                         <MDBNavbarItem>
-                            <Link className="nav-link text-decoration-none text-black" to='/ordersServed'>
+                            <Link className="nav-link text-decoration-none text-black" to='/servedOrders'>
                                 Wydane zamówienia
                             </Link>
                         </MDBNavbarItem>
                         <MDBNavbarItem>
-                            <Link className="nav-link text-decoration-none text-black" to='/ordersServed'>
+                            <Link className="nav-link text-decoration-none text-black" to='/completedOrders'>
                                 Zakończone zamówienia
                             </Link>
                         </MDBNavbarItem>

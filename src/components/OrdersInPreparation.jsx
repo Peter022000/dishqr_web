@@ -23,7 +23,7 @@ const OrdersInPreparation = (props) => {
     return (
         <div className="page-container">
             <h2 style={{ textAlign: 'center', margin: "10px" }}>Zamówienia w przygotowaniu</h2>
-            <OrderList key="orders_in_preparation"
+            <OrderList key="ordersInPreparation"
                        orders={orders}
                        buttonFunction={servedOrder}
                        functionName={"Wydano"}

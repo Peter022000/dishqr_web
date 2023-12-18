@@ -1,16 +1,17 @@
 import {
     SAVE_NEW_ORDERS,
     SAVE_NEW_ORDER,
-    CHANGE_STATUS, SAVE_ORDERS_IN_PREPARATION,
-} from "../types/orderTypes";
+    CHANGE_STATUS, SAVE_ORDERS_IN_PREPARATION, SAVE_ORDERS_IN_SERVED, SAVE_ORDERS_IN_COMPLETED,
+} from "../types/orderActionTypes";
 import {toast} from "react-toastify";
 import {statusTranslations} from "../types/statusTranslations";
+import {COMPLETED, PREPARATION, SERVED} from "../types/statusTypes";
 
 const initialState = {
     newOrders: [],
     ordersInPreparations: [],
-    served: [],
-    finished: [],
+    servedOrders: [],
+    completedOrders: [],
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -34,28 +35,40 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 ordersInPreparations: action.payload.data || [],
             };
+        case SAVE_ORDERS_IN_SERVED:
+            console.log("SAVE_ORDERS_IN_SERVED", action.payload.data);
+            return {
+                ...state,
+                servedOrders: action.payload.data || [],
+            };
+        case SAVE_ORDERS_IN_COMPLETED:
+            console.log("SAVE_ORDERS_IN_COMPLETED", action.payload.data);
+            return {
+                ...state,
+                completedOrders: action.payload.data || [],
+            };
         case CHANGE_STATUS:
             const changedOrder = action.payload.data;
             toast.info("Zmieniono status na \n" + statusTranslations[action.payload.data.status] , {position: "top-right"});
 
             switch (changedOrder.status) {
-                case 'PREPARATION':
+                case PREPARATION:
                     return {
                         ...state,
                         newOrders: state.newOrders.filter(order => order.id !== changedOrder.id),
                         ordersInPreparations: [changedOrder, ...state.ordersInPreparations],
                     };
-                case 'SERVED':
+                case SERVED:
                     return {
                         ...state,
                         ordersInPreparations: state.ordersInPreparations.filter(order => order.id !== changedOrder.id),
-                        served: [changedOrder, ...state.served],
+                        servedOrders: [changedOrder, ...state.servedOrders],
                     };
-                case 'FINISHED':
+                case COMPLETED:
                     return {
                         ...state,
-                        served: state.served.filter(order => order.id !== changedOrder.id),
-                        finished: [changedOrder, ...state.finished],
+                        servedOrders: state.servedOrders.filter(order => order.id !== changedOrder.id),
+                        completedOrders: [changedOrder, ...state.completedOrders],
                     };
                 default:
                     return state;

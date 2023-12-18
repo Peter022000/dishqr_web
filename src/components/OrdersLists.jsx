@@ -78,12 +78,16 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
                                 >
                                     Szczegóły
                                 </MDBBtn>
-                                <MDBBtn
-                                    className="button"
-                                    onClick={() => buttonFunction(order)}
-                                >
-                                    {functionName}
-                                </MDBBtn>
+                                {
+                                    buttonFunction &&
+                                    <MDBBtn
+                                        className="button"
+                                        onClick={() => buttonFunction(order)}
+                                    >
+                                        {functionName}
+                                    </MDBBtn>
+
+                                }
                             </div>
                         </div>
                     );
@@ -144,7 +148,14 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
                                         <MDBBtn color="secondary" onClick={toggleOpen}>
                                             Zamknij
                                         </MDBBtn>
-                                        <MDBBtn className="button" onClick={() => buttonFunction(selectedOrder)}>{functionName}</MDBBtn>
+                                        {
+                                            buttonFunction &&
+                                            <MDBBtn className="button"
+                                                    onClick={() => {buttonFunction(selectedOrder); setShowDetailsModal(!showDetailsModal)}}
+                                            >
+                                                {functionName}
+                                            </MDBBtn>
+                                        }
                                     </MDBModalFooter>
                                 </>
                             ) : null}

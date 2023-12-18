@@ -1,8 +1,13 @@
 import axios from 'axios';
 import {
-    MOVE_FROM_NEW_TO_PROCESSING, SAVE_NEW_ORDERS, SAVE_ORDERS_IN_PREPARATION,
-} from "../types/orderTypes";
-import {NEW, PREPARATION} from "../types/statusTypes";
+    CHANGE_STATUS,
+    MOVE_FROM_NEW_TO_PROCESSING,
+    SAVE_NEW_ORDERS,
+    SAVE_ORDERS_IN_COMPLETED,
+    SAVE_ORDERS_IN_PREPARATION,
+    SAVE_ORDERS_IN_SERVED,
+} from "../types/orderActionTypes";
+import {COMPLETED, NEW, PREPARATION, SERVED} from "../types/statusTypes";
 
 export const getNewOrders = () => async (dispatch, getState) => {
     try {
@@ -48,6 +53,49 @@ export const getOrdersInPreparation = () => async (dispatch, getState) => {
     }
 };
 
+export const getServedOrders = () => async (dispatch, getState) => {
+    try {
+        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatus?statusType=' + SERVED, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = response.data;
+
+        dispatch({
+            type: SAVE_ORDERS_IN_SERVED,
+            payload: {
+                data: data
+            },
+
+        });
+    } catch (error) {
+        console.error('Error while getting orders:', error);
+    }
+};
+
+export const getCompletedOrders = () => async (dispatch, getState) => {
+    try {
+        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatus?statusType=' + COMPLETED, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = response.data;
+
+        dispatch({
+            type: SAVE_ORDERS_IN_COMPLETED,
+            payload: {
+                data: data
+            },
+
+        });
+    } catch (error) {
+        console.error('Error while getting orders:', error);
+    }
+};
 
 export const changeOrderStatus = (order, status) => async (dispatch, getState) => {
     try {
@@ -65,7 +113,7 @@ export const changeOrderStatus = (order, status) => async (dispatch, getState) =
         const data = response.data;
 
         dispatch({
-            type: MOVE_FROM_NEW_TO_PROCESSING,
+            type: CHANGE_STATUS,
             payload: {
                 data: data
             },

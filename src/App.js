@@ -11,6 +11,8 @@ import NewOrders from "./components/NewOrders";
 import OrdersInPreparation from "./components/OrdersInPreparation";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ServedOrders from "./components/ServedOrders";
+import CompletedOrders from "./components/CompletedOrders";
 
 function App() {
 
@@ -23,6 +25,8 @@ function App() {
                       <Route index element={<NewOrders />} />
                       <Route path="newOrders" element={<NewOrders/>} />
                       <Route path="ordersInPreparation" element={<OrdersInPreparation/>} />
+                      <Route path="servedOrders" element={<ServedOrders/>} />
+                      <Route path="completedOrders" element={<CompletedOrders/>} />
                       <Route path="*" element={<Error />} />
                   </Route>
               </Routes>
