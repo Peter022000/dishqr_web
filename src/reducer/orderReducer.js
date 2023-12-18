@@ -3,6 +3,8 @@ import {
     SAVE_NEW_ORDER,
     CHANGE_STATUS, SAVE_ORDERS_IN_PREPARATION,
 } from "../types/orderTypes";
+import {toast} from "react-toastify";
+import {statusTranslations} from "../types/statusTranslations";
 
 const initialState = {
     newOrders: [],
@@ -21,6 +23,7 @@ const orderReducer = (state = initialState, action) => {
             };
         case SAVE_NEW_ORDER:
             console.log("SAVE_NEW_ORDER", action.payload.data);
+            toast.info("Nowe zamówienie");
             return {
                 ...state,
                 newOrders: [action.payload.data, ...state.newOrders],
@@ -33,8 +36,8 @@ const orderReducer = (state = initialState, action) => {
             };
         case CHANGE_STATUS:
             const changedOrder = action.payload.data;
+            toast.info("Zmieniono status na \n" + statusTranslations[action.payload.data.status] , {position: "top-right"});
 
-            // Bezpośrednio usuwaj z odpowiedniej tablicy i dodawaj changedOrder
             switch (changedOrder.status) {
                 case 'PREPARATION':
                     return {

@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {changeOrderStatus, getOrdersInPreparation} from "../actions/orderActions";
 import OrderList from "./OrdersLists";
-import {PREPARATION, SERVED} from "../types/statusTypes";
+import {SERVED} from "../types/statusTypes";
 
 const OrdersInPreparation = (props) => {
 

@@ -1,12 +1,8 @@
 import axios from 'axios';
 import {
-    GET_NEW_ORDERS,
-    GET_ORDERS,
-    GET_PROCESSING_ORDERS,
     MOVE_FROM_NEW_TO_PROCESSING, SAVE_NEW_ORDERS, SAVE_ORDERS_IN_PREPARATION,
-    SAVE_PROCESSING_ORDERS
 } from "../types/orderTypes";
-import {NEW, PREPARATION, PROCESSING} from "../types/statusTypes";
+import {NEW, PREPARATION} from "../types/statusTypes";
 
 export const getNewOrders = () => async (dispatch, getState) => {
     try {
@@ -39,9 +35,6 @@ export const getOrdersInPreparation = () => async (dispatch, getState) => {
         });
 
         const data = response.data;
-
-        console.log(data)
-
 
         dispatch({
             type: SAVE_ORDERS_IN_PREPARATION,

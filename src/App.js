@@ -1,33 +1,35 @@
 import './App.css';
 import './App.css';
-import {BrowserRouter, Routes, Route, Navigate, Outlet} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Outlet} from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
-import {isExpired} from "react-jwt";
 import Error from "./components/Error";
 import Footer from "./components/Footer";
 import React from "react";
 import {Provider} from "react-redux";
 import {store} from "./store/store";
 import NewOrders from "./components/NewOrders";
-import Login from "./components/Login";
-import ProcessingOrders from "./components/OrdersInPreparation";
 import OrdersInPreparation from "./components/OrdersInPreparation";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
 
   return (
       <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<><NavigationBar/><Outlet/><Footer/></>}>
-              <Route index element={<NewOrders />} />
-              <Route path="newOrders" element={<NewOrders/>} />
-              <Route path="ordersInPreparation" element={<OrdersInPreparation/>} />
-              <Route path="*" element={<Error />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+          <BrowserRouter>
+              <Routes>
+                  <Route path="/" element={<><NavigationBar/><Outlet/><Footer/></>}>
+                      <Route index element={<NewOrders />} />
+                      <Route path="newOrders" element={<NewOrders/>} />
+                      <Route path="ordersInPreparation" element={<OrdersInPreparation/>} />
+                      <Route path="*" element={<Error />} />
+                  </Route>
+              </Routes>
+          </BrowserRouter>
+          <ToastContainer
+              autoClose={false}
+              position="top-center"/>
       </Provider>
   );
 }
