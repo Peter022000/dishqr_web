@@ -12,7 +12,7 @@ import {toast} from "react-toastify";
 
 export const getNewOrders = () => async (dispatch, getState) => {
     try {
-        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatus?statusType=' + NEW, {
+        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatusToday?statusType=' + NEW, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -34,7 +34,7 @@ export const getNewOrders = () => async (dispatch, getState) => {
 
 export const getOrdersInPreparation = () => async (dispatch, getState) => {
     try {
-        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatus?statusType=' + PREPARATION, {
+        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatusToday?statusType=' + PREPARATION, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -56,7 +56,7 @@ export const getOrdersInPreparation = () => async (dispatch, getState) => {
 
 export const getServedOrders = () => async (dispatch, getState) => {
     try {
-        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatus?statusType=' + SERVED, {
+        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatusToday?statusType=' + SERVED, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -78,7 +78,7 @@ export const getServedOrders = () => async (dispatch, getState) => {
 
 export const getCompletedOrders = () => async (dispatch, getState) => {
     try {
-        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatus?statusType=' + COMPLETED, {
+        const response = await axios.get('http://192.168.1.2:8080/order/getOrdersByStatusToday?statusType=' + COMPLETED, {
             headers: {
                 'Content-Type': 'application/json',
             },
