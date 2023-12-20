@@ -12,8 +12,12 @@ import {
 import {Card} from "react-bootstrap";
 import {statusTranslations} from "../types/statusTranslations";
 import {paymentMethodTranslations} from "../types/paymentMethodTranslations";
+import {COMPLETED} from "../types/statusTypes";
+import {useDispatch} from "react-redux";
+import {setIsPayed} from "../actions/orderActions";
 
 const OrderList = ({orders, buttonFunction, functionName}) => {
+    const dispatch = useDispatch();
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
 
@@ -38,6 +42,10 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
         toggleOpen();
     };
 
+    function isPayed(order) {
+        dispatch(setIsPayed(order))
+    }
+
     return (
         <>
             <div className="content-wrap">
@@ -49,7 +57,7 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
                                     <strong>Dania:</strong><br />
                                     {order?.orderDishesDto?.map((item, index) => (
                                         <React.Fragment key={index}>
-                                            {item.dishDto.name}
+                                            {item.dishDto.name} x{item.quantity}
                                             <br />
                                         </React.Fragment>
                                     ))}
@@ -81,12 +89,22 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
                                 {
                                     buttonFunction &&
                                     <MDBBtn
+                                        style={{ marginRight: "1.2rem" }}
                                         className="button"
                                         onClick={() => buttonFunction(order)}
                                     >
                                         {functionName}
                                     </MDBBtn>
 
+                                }
+                                {
+                                    order.status !== COMPLETED && !order.isPayed &&
+                                    <MDBBtn
+                                        className="button"
+                                        onClick={() => isPayed(order)}
+                                    >
+                                        Opłacono
+                                    </MDBBtn>
                                 }
                             </div>
                         </div>
@@ -151,11 +169,22 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
                                         {
                                             buttonFunction &&
                                             <MDBBtn className="button"
+                                                    style={{ marginRight: "1.2rem" }}
                                                     onClick={() => {buttonFunction(selectedOrder); setShowDetailsModal(!showDetailsModal)}}
                                             >
                                                 {functionName}
                                             </MDBBtn>
                                         }
+                                        {
+                                            selectedOrder.status !== COMPLETED && !selectedOrder.isPayed &&
+                                            <MDBBtn
+                                                className="button"
+                                                onClick={() => isPayed(selectedOrder)}
+                                            >
+                                                Opłacono
+                                            </MDBBtn>
+                                        }
+
                                     </MDBModalFooter>
                                 </>
                             ) : null}

@@ -17,7 +17,7 @@ const CompletedOrders = (props) => {
 
     return (
         <div className="page-container">
-            <h2 style={{ textAlign: 'center', margin: "10px" }}>Wydane zamówienia</h2>
+            <h2 style={{ textAlign: 'center', margin: "10px" }}>Zakończone zamówienia</h2>
             <OrderList key="completedOrders"
                        orders={orders}
                        buttonFunction={null}

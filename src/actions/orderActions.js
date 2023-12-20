@@ -1,13 +1,14 @@
 import axios from 'axios';
 import {
     CHANGE_STATUS,
-    MOVE_FROM_NEW_TO_PROCESSING,
+    MOVE_FROM_NEW_TO_PROCESSING, SAVE_AFTER_IS_PAYED,
     SAVE_NEW_ORDERS,
     SAVE_ORDERS_IN_COMPLETED,
     SAVE_ORDERS_IN_PREPARATION,
     SAVE_ORDERS_IN_SERVED,
 } from "../types/orderActionTypes";
 import {COMPLETED, NEW, PREPARATION, SERVED} from "../types/statusTypes";
+import {toast} from "react-toastify";
 
 export const getNewOrders = () => async (dispatch, getState) => {
     try {
@@ -99,6 +100,11 @@ export const getCompletedOrders = () => async (dispatch, getState) => {
 
 export const changeOrderStatus = (order, status) => async (dispatch, getState) => {
     try {
+        if(!order.isPayed && status === COMPLETED) {
+            toast.error("Zamówienie musi być opłacone opłacone" , {position: "top-left", autoClose: 2000});
+            throw "isnt payed";
+        }
+
         let body = JSON.stringify({
             acceptedOrderDto: order,
             newStatus: status
@@ -114,6 +120,29 @@ export const changeOrderStatus = (order, status) => async (dispatch, getState) =
 
         dispatch({
             type: CHANGE_STATUS,
+            payload: {
+                data: data
+            },
+        });
+    } catch (error) {
+        console.error('Error while change status:', error);
+    }
+};
+
+export const setIsPayed = (order, status) => async (dispatch, getState) => {
+    try {
+        let body = JSON.stringify(order);
+
+        const response = await axios.post('http://192.168.1.2:8080/order/setIsPayed', body, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = response.data;
+
+        dispatch({
+            type: SAVE_AFTER_IS_PAYED,
             payload: {
                 data: data
             },

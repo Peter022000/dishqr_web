@@ -1,7 +1,7 @@
 import {
     SAVE_NEW_ORDERS,
     SAVE_NEW_ORDER,
-    CHANGE_STATUS, SAVE_ORDERS_IN_PREPARATION, SAVE_ORDERS_IN_SERVED, SAVE_ORDERS_IN_COMPLETED,
+    CHANGE_STATUS, SAVE_ORDERS_IN_PREPARATION, SAVE_ORDERS_IN_SERVED, SAVE_ORDERS_IN_COMPLETED, SAVE_AFTER_IS_PAYED,
 } from "../types/orderActionTypes";
 import {toast} from "react-toastify";
 import {statusTranslations} from "../types/statusTranslations";
@@ -69,6 +69,35 @@ const orderReducer = (state = initialState, action) => {
                         ...state,
                         servedOrders: state.servedOrders.filter(order => order.id !== changedOrder.id),
                         completedOrders: [changedOrder, ...state.completedOrders],
+                    };
+                default:
+                    return state;
+            }
+        case SAVE_AFTER_IS_PAYED:
+            const changedOrderAfterPayed = action.payload.data;
+            toast.info("Zamówienie opłacone" , {position: "top-left", autoClose: 2000});
+
+            switch (changedOrderAfterPayed.status) {
+                case 'NEW':
+                    return {
+                        ...state,
+                        newOrders: state.newOrders.map(order =>
+                            order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
+                        ),
+                    };
+                case 'PREPARATION':
+                    return {
+                        ...state,
+                        ordersInPreparations: state.ordersInPreparations.map(order =>
+                            order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
+                        ),
+                    };
+                case 'SERVED':
+                    return {
+                        ...state,
+                        servedOrders: state.servedOrders.map(order =>
+                            order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
+                        ),
                     };
                 default:
                     return state;
