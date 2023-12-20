@@ -14,7 +14,8 @@ const Order = ({ order }) => {
                     <li key={orderItem.dish.id}>
                         {orderItem.dish.name} - {orderItem.quantity} szt. - {orderItem.cost} zł
                     </li>
-                ))}            </ul>
+                ))}
+            </ul>
             <p>Koszt zamówienia: {order.cost} zł</p>
             <p>Metoda płatności: {order.paymentMethod}</p>
             <button onClick={() => handleAcceptOrder(order)}>Przyjmij</button>
