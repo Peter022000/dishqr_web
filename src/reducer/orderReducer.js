@@ -1,7 +1,12 @@
 import {
     SAVE_NEW_ORDERS,
     SAVE_NEW_ORDER,
-    CHANGE_STATUS, SAVE_ORDERS_IN_PREPARATION, SAVE_ORDERS_IN_SERVED, SAVE_ORDERS_IN_COMPLETED, SAVE_AFTER_IS_PAYED,
+    CHANGE_STATUS,
+    SAVE_ORDERS_IN_PREPARATION,
+    SAVE_ORDERS_IN_SERVED,
+    SAVE_ORDERS_IN_COMPLETED,
+    SAVE_AFTER_IS_PAYED,
+    SET_SELECTED_ORDER,
 } from "../types/orderActionTypes";
 import {toast} from "react-toastify";
 import {statusTranslations} from "../types/statusTranslations";
@@ -12,6 +17,7 @@ const initialState = {
     ordersInPreparations: [],
     servedOrders: [],
     completedOrders: [],
+    selectedOrder: null
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -23,12 +29,19 @@ const orderReducer = (state = initialState, action) => {
                 newOrders: action.payload.data || [], // Ensure it's an array
             };
         case SAVE_NEW_ORDER:
-            console.log("SAVE_NEW_ORDER", action.payload.data);
-            toast.info("Nowe zamówienie");
-            return {
-                ...state,
-                newOrders: [action.payload.data, ...state.newOrders],
-            };
+            const orderAdded = state.newOrders.some(order => order.id === action.payload.data.id);
+            if (orderAdded) {
+                return {
+                    ...state
+                }
+            } else {
+                console.log("SAVE_NEW_ORDER", action.payload.data);
+                toast.info("Nowe zamówienie");
+                return {
+                    ...state,
+                    newOrders: [action.payload.data, ...state.newOrders],
+                };
+            }
         case SAVE_ORDERS_IN_PREPARATION:
             console.log("SAVE_ORDERS_IN_PREPARATION", action.payload.data);
             return {
@@ -77,6 +90,7 @@ const orderReducer = (state = initialState, action) => {
             const changedOrderAfterPayed = action.payload.data;
             toast.info("Zamówienie opłacone" , {position: "top-left", autoClose: 2000});
 
+
             switch (changedOrderAfterPayed.status) {
                 case 'NEW':
                     return {
@@ -84,6 +98,7 @@ const orderReducer = (state = initialState, action) => {
                         newOrders: state.newOrders.map(order =>
                             order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
                         ),
+                        selectedOrder: changedOrderAfterPayed
                     };
                 case 'PREPARATION':
                     return {
@@ -91,6 +106,7 @@ const orderReducer = (state = initialState, action) => {
                         ordersInPreparations: state.ordersInPreparations.map(order =>
                             order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
                         ),
+                        selectedOrder: changedOrderAfterPayed
                     };
                 case 'SERVED':
                     return {
@@ -98,10 +114,18 @@ const orderReducer = (state = initialState, action) => {
                         servedOrders: state.servedOrders.map(order =>
                             order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
                         ),
+                        selectedOrder: changedOrderAfterPayed
                     };
                 default:
                     return state;
             }
+        case SET_SELECTED_ORDER:
+            console.log("SET_SELECTED_ORDER", action.payload.data);
+            return {
+                ...state,
+                selectedOrder: action.payload.data
+            };
+
         default:
             return state;
     }

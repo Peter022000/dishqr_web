@@ -129,7 +129,7 @@ export const changeOrderStatus = (order, status) => async (dispatch, getState) =
     }
 };
 
-export const setIsPayed = (order, status) => async (dispatch, getState) => {
+export const setIsPayed = (order) => async (dispatch, getState) => {
     try {
         let body = JSON.stringify(order);
 
