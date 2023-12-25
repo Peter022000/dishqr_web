@@ -16,6 +16,7 @@ import Statistics from "../components/Statistics";
 import EditQRCode from "../components/EditQRCode";
 import EditMenuItem from "../components/EditMenuItem";
 import EditMenuAddDish from "../components/EditMenuAddDish";
+import ChangePassword from "../components/ChangePassword";
 
 const NavigationRoutes = () => {
 
@@ -32,6 +33,7 @@ const NavigationRoutes = () => {
                     <Route path="completed-orders" element={<CompletedOrders/>} />
                     <Route path="admin-panel" element={<AdminPanel/>} />
                     <Route path="admin-panel/login" element={isLogged ? <Navigate replace to="/admin-panel"/> : <Login/>} />
+                    <Route path="admin-panel/change-password" element={isLogged ? <ChangePassword/> : <Navigate replace to="/admin-panel"/>} />
                     <Route path="admin-panel/edit-menu" element={isLogged ? <EditMenu/> : <Navigate replace to="/admin-panel"/>} />
                     <Route path="admin-panel/edit-menu/:id" element={isLogged ? <EditMenuItem/> : <Navigate replace to="/admin-panel"/>} />
                     <Route path="admin-panel/edit-menu/addDish-panel" element={isLogged ? <EditMenuAddDish/> : <Navigate replace to="/admin-panel"/>} />

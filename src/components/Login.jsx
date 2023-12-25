@@ -52,6 +52,7 @@ const Login = (props) => {
             <div className="content-wrap">
                 <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
                     <MDBInput
+                        style={{padding: "1rem", fontSize: "1.2rem"}}
                         wrapperClass='mb-4'
                         label='Email'
                         id='form1'
@@ -60,8 +61,9 @@ const Login = (props) => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <MDBInput
+                        style={{padding: "1rem", fontSize: "1.2rem"}}
                         wrapperClass='mb-4'
-                        label='Password'
+                        label='Hasło'
                         id='form2'
                         type='password'
                         value={password}

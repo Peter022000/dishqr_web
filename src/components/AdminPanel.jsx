@@ -37,6 +37,11 @@ const AdminPanel = () => {
                                         Wyloguj
                                     </MDBBtn>
                                 </Link>
+                                <Link to="/admin-panel/change-password">
+                                    <MDBBtn className="button button2">
+                                        Zmień hasło
+                                    </MDBBtn>
+                                </Link>
                                 <Link to='/admin-panel/edit-menu'>
                                     <MDBBtn className="button button2">
 
