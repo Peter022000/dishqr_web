@@ -17,7 +17,6 @@ const initialState = {
     ordersInPreparations: [],
     servedOrders: [],
     completedOrders: [],
-    selectedOrder: null
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -90,31 +89,27 @@ const orderReducer = (state = initialState, action) => {
             const changedOrderAfterPayed = action.payload.data;
             toast.info("Zamówienie opłacone" , {position: "top-left", autoClose: 2000});
 
-
             switch (changedOrderAfterPayed.status) {
                 case 'NEW':
                     return {
                         ...state,
                         newOrders: state.newOrders.map(order =>
                             order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
-                        ),
-                        selectedOrder: changedOrderAfterPayed
+                        )
                     };
                 case 'PREPARATION':
                     return {
                         ...state,
                         ordersInPreparations: state.ordersInPreparations.map(order =>
                             order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
-                        ),
-                        selectedOrder: changedOrderAfterPayed
+                        )
                     };
                 case 'SERVED':
                     return {
                         ...state,
                         servedOrders: state.servedOrders.map(order =>
                             order.id === changedOrderAfterPayed.id ? changedOrderAfterPayed : order
-                        ),
-                        selectedOrder: changedOrderAfterPayed
+                        )
                     };
                 default:
                     return state;

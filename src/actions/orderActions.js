@@ -147,6 +147,7 @@ export const setIsPayed = (order) => async (dispatch, getState) => {
                 data: data
             },
         });
+        return response.data;
     } catch (error) {
         console.error('Error while getting orders:', error);
     }

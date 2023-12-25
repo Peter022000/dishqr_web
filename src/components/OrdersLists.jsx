@@ -19,10 +19,10 @@ import {SET_SELECTED_ORDER} from "../types/orderActionTypes";
 
 const OrderList = ({orders, buttonFunction, functionName}) => {
     const dispatch = useDispatch();
-    //const [selectedOrder, setSelectedOrder] = useState(null);
+    const [selectedOrder, setSelectedOrder] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
 
-    const selectedOrder = useSelector((state) => state.order.selectedOrder);
+    //const selectedOrder = useSelector((state) => state.order.selectedOrder);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
@@ -41,17 +41,16 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
     };
 
     const handleDetailsClick = (order) => {
-        dispatch({
-            type: SET_SELECTED_ORDER,
-            payload: {
-                data: order
-            },
-        })
+        setSelectedOrder(order)
         toggleOpen();
     };
 
     function isPayed(order) {
-        dispatch(setIsPayed(order))
+        dispatch(setIsPayed(order)).then((resolvedOrder) => {
+            setSelectedOrder(resolvedOrder);
+        }).catch((error) => {
+            console.error('Error:', error);
+        });
     }
 
     return (
@@ -152,7 +151,7 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
                                             </div>
                                         </div>
                                         <h3 style={{textAlign: "center"}}>Dania:</h3>
-                                        <div style={{display: "flex", flexWrap:"wrap", justifyContent: "center", padding: "1rem"}}>
+                                        <div style={{display: "flex", flexWrap:"wrap", justifyContent: "center", alignItems: "center", padding: "1rem"}}>
                                             {selectedOrder?.orderDishesDto?.map((dish, index) => (
                                                 <div key={index + "_" + dish.dishDto.id} style={{margin: '1em'}}>
                                                     <Card style={{ width: '18rem', zIndex:1}}>

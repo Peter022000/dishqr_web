@@ -10,14 +10,16 @@ import Error from "../components/Error";
 import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
 import AdminPanel from "../components/AdminPanel";
+import EditMenu from "../components/EditMenu";
+import EditDiscount from "../components/EditDiscount";
+import Statistics from "../components/Statistics";
+import EditQRCode from "../components/EditQRCode";
+import EditMenuItem from "../components/EditMenuItem";
+import EditMenuAddDish from "../components/EditMenuAddDish";
 
 const NavigationRoutes = () => {
 
     const isLogged = useSelector((state) => state.auth.isLogged);
-
-    useEffect(() => {
-        console.log(isLogged)
-    }, [isLogged]);
 
     return (
         <BrowserRouter>
@@ -30,9 +32,12 @@ const NavigationRoutes = () => {
                     <Route path="completed-orders" element={<CompletedOrders/>} />
                     <Route path="admin-panel" element={<AdminPanel/>} />
                     <Route path="admin-panel/login" element={isLogged ? <Navigate replace to="/admin-panel"/> : <Login/>} />
-                    <Route path="admin-panel/edit-menu" element={isLogged ? <Login/> : <Navigate replace to="/admin-panel"/>} />
-                    <Route path="admin-panel/edit-discount" element={isLogged ? <Login/> : <Navigate replace to="/admin-panel"/>} />
-                    <Route path="admin-panel/statistics" element={isLogged ? <Login/> : <Navigate replace to="/admin-panel"/>} />
+                    <Route path="admin-panel/edit-menu" element={isLogged ? <EditMenu/> : <Navigate replace to="/admin-panel"/>} />
+                    <Route path="admin-panel/edit-menu/:id" element={isLogged ? <EditMenuItem/> : <Navigate replace to="/admin-panel"/>} />
+                    <Route path="admin-panel/edit-menu/addDish-panel" element={isLogged ? <EditMenuAddDish/> : <Navigate replace to="/admin-panel"/>} />
+                    <Route path="admin-panel/edit-discount" element={isLogged ? <EditDiscount/> : <Navigate replace to="/admin-panel"/>} />
+                    <Route path="admin-panel/edit-qr-code" element={isLogged ? <EditQRCode/> : <Navigate replace to="/admin-panel"/>} />
+                    <Route path="admin-panel/statistics" element={isLogged ? <Statistics/> : <Navigate replace to="/admin-panel"/>} />
                     <Route path="*" element={<Error />} />
                 </Route>
             </Routes>

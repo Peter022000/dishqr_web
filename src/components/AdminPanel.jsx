@@ -1,7 +1,8 @@
 import {MDBBtn, MDBContainer, MDBDropdownItem} from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {logOut} from "../actions/authAction";
+import {isExpired, logOut} from "../actions/authAction";
+import {useEffect} from "react";
 
 const AdminPanel = () => {
 
@@ -9,13 +10,18 @@ const AdminPanel = () => {
 
     const dispatch = useDispatch();
 
+    useEffect( () => {
+        dispatch(isExpired());
+        }, []);
+
+
     return(
         <div className="page-container d-flex align-items-center justify-content-center">
             <div className="content-wrap text-center d-flex align-items-center justify-content-center">
                 <MDBContainer>
                     <div className="d-grid gap-3">
                         {!isLogged ?
-                            <Link className="nav-link text-decoration-none text-white" to="/admin-panel/login">
+                            <Link to="/admin-panel/login">
                                 <MDBBtn className="button button2">
                                     Zaloguj
                                 </MDBBtn>
@@ -23,7 +29,7 @@ const AdminPanel = () => {
                             </Link>
                             :
                             <>
-                                <Link className="nav-link text-decoration-none text-white" to="/admin-panel"
+                                <Link to="/admin-panel"
                                       onClick={() => {
                                           dispatch(logOut())
                                       }}>
@@ -31,18 +37,23 @@ const AdminPanel = () => {
                                         Wyloguj
                                     </MDBBtn>
                                 </Link>
-                                <Link className="nav-link text-decoration-none text-white" to='/admin-panel/edit-menu'>
+                                <Link to='/admin-panel/edit-menu'>
                                     <MDBBtn className="button button2">
 
                                         Zarządzanie menu
                                     </MDBBtn>
                                 </Link>
-                                <Link className="nav-link text-decoration-none text-white" to='/admin-panel/edit-discount'>
+                                <Link to='/admin-panel/edit-discount'>
                                     <MDBBtn className="button button2">
                                         Zarządzanie promocją
                                     </MDBBtn>
                                 </Link>
-                                <Link className="nav-link text-decoration-none text-white" to='/admin-panel/statistics'>
+                                <Link to='/admin-panel/edit-qr-code'>
+                                    <MDBBtn className="button button2">
+                                        Zarządzanie kodami QR
+                                    </MDBBtn>
+                                </Link>
+                                <Link to='/admin-panel/statistics'>
                                     <MDBBtn className="button button2">
                                         Statystyki
                                     </MDBBtn>
@@ -52,7 +63,8 @@ const AdminPanel = () => {
                     </div>
                 </MDBContainer>
             </div>
-        </div>        // <MDBDropdownItem>
+        </div>
+        // <MDBDropdownItem>
         //     {
         //         isLogged ?
         //             <Link onClick={() => {handleLogout()}} className="nav-link text-decoration-none text-black">
