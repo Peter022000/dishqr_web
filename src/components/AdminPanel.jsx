@@ -44,7 +44,6 @@ const AdminPanel = () => {
                                 </Link>
                                 <Link to='/admin-panel/edit-menu'>
                                     <MDBBtn className="button button2">
-
                                         Zarządzanie menu
                                     </MDBBtn>
                                 </Link>

@@ -163,15 +163,13 @@ const EditMenuItem = (props) => {
                     <MDBInput
                         style={{padding: "1rem", fontSize: "1.2rem"}}
                         wrapperClass='mb-4'
-                        label='Składniki'
+                        label='Składniki (rozdzielać przecinkiem bez spacji)'
                         id='form1'
                         type='text'
                         value={ingredients}
                         onChange={(e) => {
-                            // Remove spaces from the input value
                             const newValue = e.target.value.replace(/\s/g, '');
 
-                            // Set the modified value to state
                             setIngredients(newValue);
                         }}                    />
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
