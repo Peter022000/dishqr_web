@@ -32,8 +32,6 @@ const EditMenuAddDish = (props) => {
     const token = useSelector((state) => state.auth.token);
     const navigate = useNavigate();
 
-    const { id } = useParams();
-
     const dialog = () => {
         if (!name || !dishType || !price || !ingredients) {
             toast.error("Wszystkie pola muszą być uzupełnione", { position: "top-left", autoClose: 2000 });
@@ -44,12 +42,11 @@ const EditMenuAddDish = (props) => {
 
     const addDish = async () => {
         try {
-            const updatedIngredients = ingredients ? String(ingredients).replace(/\s/g, '') : "";
+            const updatedIngredients = ingredients ? ingredients : "";
 
             const ingredientsArray = updatedIngredients ? updatedIngredients.split(',') : [];
 
             let body = JSON.stringify({
-                id: id,
                 dishType: dishType,
                 name: name,
                 price: price,
@@ -119,9 +116,7 @@ const EditMenuAddDish = (props) => {
                         type='text'
                         value={ingredients}
                         onChange={(e) => {
-                            const newValue = e.target.value.replace(/\s/g, '');
-
-                            setIngredients(newValue);
+                            setIngredients(e.target.value);
                         }}                    />
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                         <MDBBtn className="button" style={{ marginRight: "1.2rem" }} onClick={() => dialog()}>Zapisz</MDBBtn>

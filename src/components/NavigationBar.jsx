@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {
     MDBCollapse,
     MDBContainer, MDBIcon,
@@ -15,6 +15,7 @@ import Stomp from "stompjs";
 import {CHANGE_STATUS, SAVE_NEW_ORDER} from "../types/orderActionTypes";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
+import {isExpired} from "../actions/authAction";
 
 const NavigationBar = () => {
     const [openNavText, setOpenNavText] = useState(false);
@@ -50,6 +51,13 @@ const NavigationBar = () => {
             }
         };
     }, [dispatch]);
+
+    const location = useLocation();
+
+    useEffect(() => {
+        dispatch(isExpired());
+    }, [location]);
+
 
     return (
         <MDBNavbar expand='lg' light bgColor='light' style={{ height: '4rem' }}>

@@ -34,7 +34,6 @@ const EditMenuItem = (props) => {
     const [dialogDescription, setDialogDescription] = useState("");
     const [dialogAction, setDialogAction] = useState(() => {});
 
-
     const token = useSelector((state) => state.auth.token);
     const navigate = useNavigate();
 
@@ -75,7 +74,7 @@ const EditMenuItem = (props) => {
 
     const updateDish = async () => {
         try {
-            const updatedIngredients = ingredients ? String(ingredients).replace(/\s/g, '') : "";
+            const updatedIngredients = ingredients ? ingredients : "";
 
             const ingredientsArray = updatedIngredients ? updatedIngredients.split(',') : [];
 
@@ -168,13 +167,12 @@ const EditMenuItem = (props) => {
                         type='text'
                         value={ingredients}
                         onChange={(e) => {
-                            const newValue = e.target.value.replace(/\s/g, '');
-
-                            setIngredients(newValue);
-                        }}                    />
+                            setIngredients(e.target.value);
+                        }}/>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                         <MDBBtn className="button" style={{ marginRight: "1.2rem" }} onClick={() => dialog("Potwierdzenie", "Zapisać zmiany?", updateDish)}>Zmień</MDBBtn>
-                        <MDBBtn className="button" onClick={() => dialog("Potwierdzenie", "Czy na pewno chcesz usunąć to danie?", deleteDish)}>Usuń</MDBBtn>                    </div>
+                        <MDBBtn className="button" onClick={() => dialog("Potwierdzenie", "Czy na pewno chcesz usunąć to danie?", deleteDish)}>Usuń</MDBBtn>
+                    </div>
                 </MDBContainer>
                 <MDBModal open={basicModal} onClose={toggleClose} setOpen={setBasicModal} tabIndex='-1'>
                     <MDBModalDialog>

@@ -3,25 +3,14 @@ import axios from "axios";
 import {Card} from "react-bootstrap";
 import {
     MDBBtn,
-    MDBModal,
-    MDBModalBody,
-    MDBModalContent,
-    MDBModalDialog, MDBModalFooter,
-    MDBModalHeader,
-    MDBModalTitle
 } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
-import {toast} from "react-toastify";
-import {useDispatch, useSelector} from "react-redux";
-import {logOut} from "../actions/authAction";
+import {useDispatch} from "react-redux";
 
 const EditMenu = (props) => {
 
     const [soups, setSoups] = useState([]);
     const [mainCourse, setMainCourse] = useState([]);
-    const [dishToDelete, setDishToDelete] = useState("");
-
-    const dispatch = useDispatch();
 
     const fetchData = async () => {
         const response = await axios.get('http://192.168.1.2:8080/dishes/getAllDishes', {

@@ -10,11 +10,6 @@ const AdminPanel = () => {
 
     const dispatch = useDispatch();
 
-    useEffect( () => {
-        dispatch(isExpired());
-        }, []);
-
-
     return(
         <div className="page-container d-flex align-items-center justify-content-center">
             <div className="content-wrap text-center d-flex align-items-center justify-content-center">

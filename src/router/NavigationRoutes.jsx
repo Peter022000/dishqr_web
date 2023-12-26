@@ -1,4 +1,4 @@
-import {BrowserRouter, Navigate, Outlet, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Outlet, Route, Routes, useLocation} from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import NewOrders from "../components/NewOrders";
@@ -8,7 +8,7 @@ import CompletedOrders from "../components/CompletedOrders";
 import Login from "../components/Login";
 import Error from "../components/Error";
 import React, {useEffect} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import AdminPanel from "../components/AdminPanel";
 import EditMenu from "../components/EditMenu";
 import EditDiscount from "../components/EditDiscount";
@@ -17,6 +17,9 @@ import EditQRCode from "../components/EditQRCode";
 import EditMenuItem from "../components/EditMenuItem";
 import EditMenuAddDish from "../components/EditMenuAddDish";
 import ChangePassword from "../components/ChangePassword";
+import EditQRCodeItem from "../components/EditQRCodeItem";
+import EditQRCodeAdd from "../components/EditQRCodeAdd";
+import {isExpired} from "../actions/authAction";
 
 const NavigationRoutes = () => {
 
@@ -39,6 +42,8 @@ const NavigationRoutes = () => {
                     <Route path="admin-panel/edit-menu/addDish-panel" element={isLogged ? <EditMenuAddDish/> : <Navigate replace to="/admin-panel"/>} />
                     <Route path="admin-panel/edit-discount" element={isLogged ? <EditDiscount/> : <Navigate replace to="/admin-panel"/>} />
                     <Route path="admin-panel/edit-qr-code" element={isLogged ? <EditQRCode/> : <Navigate replace to="/admin-panel"/>} />
+                    <Route path="admin-panel/edit-qr-code/:id" element={isLogged ? <EditQRCodeItem/> : <Navigate replace to="/admin-panel"/>} />
+                    <Route path="admin-panel/edit-qr-code/add-qr-code-panel" element={isLogged ? <EditQRCodeAdd/> : <Navigate replace to="/admin-panel"/>} />
                     <Route path="admin-panel/statistics" element={isLogged ? <Statistics/> : <Navigate replace to="/admin-panel"/>} />
                     <Route path="*" element={<Error />} />
                 </Route>
