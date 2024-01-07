@@ -1,7 +1,7 @@
 import './App.css';
 import './App.css';
 import React from "react";
-import {Provider, useSelector} from "react-redux";
+import {Provider} from "react-redux";
 import {persistor, store} from "./store/store";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

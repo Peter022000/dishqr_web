@@ -13,16 +13,13 @@ import {Card} from "react-bootstrap";
 import {statusTranslations} from "../types/statusTranslations";
 import {paymentMethodTranslations} from "../types/paymentMethodTranslations";
 import {COMPLETED} from "../types/statusTypes";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setIsPayed} from "../actions/orderActions";
-import {SET_SELECTED_ORDER} from "../types/orderActionTypes";
 
 const OrderList = ({orders, buttonFunction, functionName}) => {
     const dispatch = useDispatch();
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
-
-    //const selectedOrder = useSelector((state) => state.order.selectedOrder);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };

@@ -5,7 +5,6 @@ import {
     MDBBtn,
 } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
 
 const EditMenu = (props) => {
 

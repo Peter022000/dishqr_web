@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {Card} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {
     MDBBtn,
     MDBContainer,
@@ -12,9 +11,6 @@ import {
     MDBModalDialog, MDBModalFooter,
     MDBModalHeader, MDBModalTitle
 } from "mdb-react-ui-kit";
-import QRCode from "react-qr-code";
-import html2canvas from "html2canvas";
-import {DishType} from "../types/dishTypes";
 import {toast} from "react-toastify";
 
 const EditQRCodeAdd = (props) => {
@@ -84,7 +80,7 @@ const EditQRCodeAdd = (props) => {
                                 <MDBModalTitle>Potwierdzenie</MDBModalTitle>
                                 <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
                             </MDBModalHeader>
-                            <MDBModalBody>Czy chcesz zapisać danie?</MDBModalBody>
+                            <MDBModalBody>Czy chcesz zapisać kod QR?</MDBModalBody>
 
                             <MDBModalFooter>
                                 <MDBBtn color='secondary' onClick={toggleOpen}>

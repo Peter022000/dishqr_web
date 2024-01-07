@@ -3,16 +3,8 @@ import '../App.css';
 import {
     MDBContainer,
     MDBInput,
-    MDBCard,
-    MDBCardBody,
-    MDBRow,
-    MDBCol,
-    MDBCardImage, MDBCheckbox, MDBBtn, MDBIcon
+    MDBBtn
 } from 'mdb-react-ui-kit';
-import Button from "react-bootstrap/Button";
-import {Link, useNavigate} from "react-router-dom";
-import axios, {AxiosError} from "axios";
-import {decodeToken} from "react-jwt";
 import {useDispatch} from "react-redux";
 import {changePassword, login} from "../actions/authAction";
 import {toast} from "react-toastify";

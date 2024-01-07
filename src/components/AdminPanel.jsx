@@ -1,8 +1,7 @@
 import {MDBBtn, MDBContainer, MDBDropdownItem} from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {isExpired, logOut} from "../actions/authAction";
-import {useEffect} from "react";
+import { logOut} from "../actions/authAction";
 
 const AdminPanel = () => {
 

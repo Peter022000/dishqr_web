@@ -7,8 +7,8 @@ import ServedOrders from "../components/ServedOrders";
 import CompletedOrders from "../components/CompletedOrders";
 import Login from "../components/Login";
 import Error from "../components/Error";
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React from "react";
+import {useSelector} from "react-redux";
 import AdminPanel from "../components/AdminPanel";
 import EditMenu from "../components/EditMenu";
 import EditDiscount from "../components/EditDiscount";
@@ -19,7 +19,6 @@ import EditMenuAddDish from "../components/EditMenuAddDish";
 import ChangePassword from "../components/ChangePassword";
 import EditQRCodeItem from "../components/EditQRCodeItem";
 import EditQRCodeAdd from "../components/EditQRCodeAdd";
-import {isExpired} from "../actions/authAction";
 
 const NavigationRoutes = () => {
 

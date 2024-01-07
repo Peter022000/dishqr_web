@@ -12,7 +12,7 @@ import {
 import {useEffect, useState} from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import {CHANGE_STATUS, SAVE_NEW_ORDER} from "../types/orderActionTypes";
+import { SAVE_NEW_ORDER} from "../types/orderActionTypes";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
 import {isExpired} from "../actions/authAction";

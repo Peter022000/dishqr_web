@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Card} from "react-bootstrap";
 import {
     MDBBtn,
     MDBContainer,
@@ -11,7 +10,6 @@ import {
     MDBModalHeader, MDBModalTitle
 } from "mdb-react-ui-kit";
 import {useNavigate, useParams} from "react-router-dom";
-import {DishType} from "../types/dishTypes";
 import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
 
