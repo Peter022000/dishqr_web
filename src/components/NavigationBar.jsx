@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {
     MDBCollapse,
     MDBContainer, MDBIcon,
@@ -12,9 +12,10 @@ import {
 import {useEffect, useState} from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import {CHANGE_STATUS, SAVE_NEW_ORDER} from "../types/orderActionTypes";
+import { SAVE_NEW_ORDER} from "../types/orderActionTypes";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
+import {isExpired} from "../actions/authAction";
 
 const NavigationBar = () => {
     const [openNavText, setOpenNavText] = useState(false);
@@ -51,6 +52,13 @@ const NavigationBar = () => {
         };
     }, [dispatch]);
 
+    const location = useLocation();
+
+    useEffect(() => {
+        dispatch(isExpired());
+    }, [location]);
+
+
     return (
         <MDBNavbar expand='lg' light bgColor='light' style={{ height: '4rem' }}>
             <MDBContainer fluid>
@@ -70,31 +78,30 @@ const NavigationBar = () => {
                 <MDBCollapse style={{ backgroundColor: "#f8f9fa", color: 'f8f9fa', zIndex: 1000, padding: "1.2rem" }} navbar open={openNavText}>
                     <MDBNavbarNav className='mr-auto mb-2 mb-lg-0'>
                         <MDBNavbarItem>
-                            <Link className="nav-link text-decoration-none text-black" to='/newOrders'>
+                            <Link className="nav-link text-decoration-none text-black" to='/new-orders'>
                                 Nowe zamówienia
                             </Link>
                         </MDBNavbarItem>
                         <MDBNavbarItem>
-                            <Link className="nav-link text-decoration-none text-black" to='/ordersInPreparation'>
+                            <Link className="nav-link text-decoration-none text-black" to='/orders-in-preparation'>
                                 Zamówienia w przygotowaniu
                             </Link>
                         </MDBNavbarItem>
                         <MDBNavbarItem>
-                            <Link className="nav-link text-decoration-none text-black" to='/servedOrders'>
+                            <Link className="nav-link text-decoration-none text-black" to='/served-orders'>
                                 Wydane zamówienia
                             </Link>
                         </MDBNavbarItem>
                         <MDBNavbarItem>
-                            <Link className="nav-link text-decoration-none text-black" to='/completedOrders'>
+                            <Link className="nav-link text-decoration-none text-black" to='/completed-orders'>
                                 Zakończone zamówienia
                             </Link>
                         </MDBNavbarItem>
                     </MDBNavbarNav>
 
-                    {/* Align the content to the right side */}
                     <MDBNavbarNav className='ml-auto justify-content-end'>
                         <MDBNavbarItem>
-                            <Link className="nav-link text-decoration-none text-black" to='/completedOrders'>
+                            <Link className="nav-link text-decoration-none text-black" to='/admin-panel'>
                                 Panel administratora
                             </Link>
                         </MDBNavbarItem>

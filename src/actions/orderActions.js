@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
     CHANGE_STATUS,
-    MOVE_FROM_NEW_TO_PROCESSING, SAVE_AFTER_IS_PAYED,
+    SAVE_AFTER_IS_PAYED,
     SAVE_NEW_ORDERS,
     SAVE_ORDERS_IN_COMPLETED,
     SAVE_ORDERS_IN_PREPARATION,
@@ -129,7 +129,7 @@ export const changeOrderStatus = (order, status) => async (dispatch, getState) =
     }
 };
 
-export const setIsPayed = (order, status) => async (dispatch, getState) => {
+export const setIsPayed = (order) => async (dispatch, getState) => {
     try {
         let body = JSON.stringify(order);
 
@@ -147,6 +147,7 @@ export const setIsPayed = (order, status) => async (dispatch, getState) => {
                 data: data
             },
         });
+        return response.data;
     } catch (error) {
         console.error('Error while getting orders:', error);
     }

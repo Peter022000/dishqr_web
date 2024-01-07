@@ -73,4 +73,11 @@ div, p {
   display: inline-block;
   font-size: 16px;
   border-radius: 5px;
+  width: 12vw;
 }
+
+.button2 {
+  width: 22vw;
+  height: 8vh;
+}
+

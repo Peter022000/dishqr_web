@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     MDBBtn,
     MDBModal,
@@ -38,12 +38,16 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
     };
 
     const handleDetailsClick = (order) => {
-        setSelectedOrder(order);
+        setSelectedOrder(order)
         toggleOpen();
     };
 
     function isPayed(order) {
-        dispatch(setIsPayed(order))
+        dispatch(setIsPayed(order)).then((resolvedOrder) => {
+            setSelectedOrder(resolvedOrder);
+        }).catch((error) => {
+            console.error('Error:', error);
+        });
     }
 
     return (
@@ -144,7 +148,7 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
                                             </div>
                                         </div>
                                         <h3 style={{textAlign: "center"}}>Dania:</h3>
-                                        <div style={{display: "flex", flexWrap:"wrap", justifyContent: "center", padding: "1rem"}}>
+                                        <div style={{display: "flex", flexWrap:"wrap", justifyContent: "center", alignItems: "center", padding: "1rem"}}>
                                             {selectedOrder?.orderDishesDto?.map((dish, index) => (
                                                 <div key={index + "_" + dish.dishDto.id} style={{margin: '1em'}}>
                                                     <Card style={{ width: '18rem', zIndex:1}}>
@@ -162,14 +166,13 @@ const OrderList = ({orders, buttonFunction, functionName}) => {
                                             ))}
                                         </div>
                                     </MDBModalBody>
-                                    <MDBModalFooter>
-                                        <MDBBtn color="secondary" onClick={toggleOpen}>
+                                    <MDBModalFooter className="justify-content-center flex-column flex-md-row">
+                                        <MDBBtn style={{width: "12vw"}} color="secondary" onClick={toggleOpen}>
                                             Zamknij
                                         </MDBBtn>
                                         {
                                             buttonFunction &&
                                             <MDBBtn className="button"
-                                                    style={{ marginRight: "1.2rem" }}
                                                     onClick={() => {buttonFunction(selectedOrder); setShowDetailsModal(!showDetailsModal)}}
                                             >
                                                 {functionName}
