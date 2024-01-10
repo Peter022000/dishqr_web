@@ -62,18 +62,6 @@ const AdminPanel = () => {
                 </MDBContainer>
             </div>
         </div>
-        // <MDBDropdownItem>
-        //     {
-        //         isLogged ?
-        //             <Link onClick={() => {handleLogout()}} className="nav-link text-decoration-none text-black">
-        //                 Wyloguj
-        //             </Link>
-        //             :
-        //             <Link className="nav-link text-decoration-none text-black" to='/login'>
-        //                 Zaloguj
-        //             </Link>
-        //     }
-        // </MDBDropdownItem>
     );
 }
 

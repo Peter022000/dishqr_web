@@ -13,6 +13,7 @@ import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useSelector} from "react-redux";
 import {DishType} from "../types/dishTypes";
+import {act} from "react-dom/test-utils";
 
 const EditMenuAddDish = (props) => {
 
@@ -60,12 +61,13 @@ const EditMenuAddDish = (props) => {
                 },
             });
             toast.success("Dodano danie" , {position: "top-left", autoClose: 2000});
-            navigate("/admin-panel/edit-menu");
+            act(() => {
+                navigate('/admin-panel/edit-menu');
+            });
         } catch (error) {
             console.error('Error adding data:', error);
         }
     };
-
 
     return (
         <div className="page-container">

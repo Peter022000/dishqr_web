@@ -15,6 +15,7 @@ import {
     MDBModalHeader,
     MDBModalTitle,
 } from "mdb-react-ui-kit";
+import {act} from "react-dom/test-utils";
 
 const EditDiscount = (props) => {
 
@@ -92,7 +93,9 @@ const EditDiscount = (props) => {
                 position: "top-left",
                 autoClose: 2000,
             });
-            navigate("/admin-panel");
+            act(() => {
+                navigate("/admin-panel");
+            });
         } catch (error) {
             console.error("Error fetching data:", error);
         }
