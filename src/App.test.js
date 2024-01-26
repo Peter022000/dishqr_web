@@ -76,7 +76,6 @@ test('renders AdminPanel component with logged-out state', () => {
 });
 
 test('renders AdminPanel component with logged-in state', () => {
-  // Mock the useSelector hook to simulate logged-in state
   jest.spyOn(require('react-redux'), 'useSelector').mockReturnValue({
     auth: {
       isLogged: true,
