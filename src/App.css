@@ -1,38 +1,83 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.page-container {
   display: flex;
   flex-direction: column;
+  min-height: calc(100vh - 4rem - 4rem);
+}
+
+.content-wrap {
+  flex: 1;
+}
+
+div, p {
+  font-size: 1.2rem;
+}
+
+.footer {
+  background-color: #F8F9FA;
+  height: 4rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.5rem;
+  text-align: center;
+  align-content: center;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.order-container {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  flex-direction: column;
+  align-items: center;
+  text-align:  justify-all;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.order-container-without-border {
+  padding: 10px;
+  margin: 10px;
+  flex-direction: column;
+  align-items: center;
+  text-align:  justify-all;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.order-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+.order-details-two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+
+.order-details-item {
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+.button {
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: #4CAF50;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  width: 12vw;
 }
 
-.App-link {
-  color: #61dafb;
+.button2 {
+  width: 22vw;
+  height: 8vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
